@@ -43,7 +43,7 @@ const Home = () => {
           </button>
           <Link href="/contact" passHref>
             <button className="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-indigo-50 transition border border-indigo-600">
-              Contact Us
+            Contact Your Politician
             </button>
           </Link>
         </div>
@@ -80,7 +80,7 @@ const Home = () => {
           <div className="flex space-x-6">
             <Link href="/privacy" className="hover:text-indigo-300 transition">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-indigo-300 transition">Terms of Service</Link>
-            <Link href="/contact" className="hover:text-indigo-300 transition">Contact Us</Link>
+            <Link href="/contact" className="hover:text-indigo-300 transition">Contact Your Politician</Link>
           </div>
         </div>
       </footer>
