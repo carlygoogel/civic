@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from 'next/link';
 import { ArrowRight, BarChart2, Mail, MessageSquare } from 'lucide-react';
 import civic_logo from '../app/images/civic_logo.png';
-import CivicContactForm from './components/civic_contact_form';
 
 
 const Home = () => {

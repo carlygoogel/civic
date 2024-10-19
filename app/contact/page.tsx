@@ -6,122 +6,244 @@ import {
   Card, 
   CardContent, 
   TextField, 
+  Select, 
   MenuItem, 
   Button, 
   Typography, 
   Box,
-  FormControl,
-  InputLabel,
-  Select
+  Grid
 } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#0e1e5b', 
+    },
+    secondary: {
+      main: '#b22234', 
+    },
+  },
+  
+});
+
+const states = [
+  { name: 'Alabama', abbreviation: 'AL' },
+  { name: 'Alaska', abbreviation: 'AK' },
+  { name: 'Arizona', abbreviation: 'AZ' },
+  { name: 'Arkansas', abbreviation: 'AR' },
+  { name: 'California', abbreviation: 'CA' },
+  { name: 'Colorado', abbreviation: 'CO' },
+  { name: 'Connecticut', abbreviation: 'CT' },
+  { name: 'Delaware', abbreviation: 'DE' },
+  { name: 'Florida', abbreviation: 'FL' },
+  { name: 'Georgia', abbreviation: 'GA' },
+  { name: 'Hawaii', abbreviation: 'HI' },
+  { name: 'Idaho', abbreviation: 'ID' },
+  { name: 'Illinois', abbreviation: 'IL' },
+  { name: 'Indiana', abbreviation: 'IN' },
+  { name: 'Iowa', abbreviation: 'IA' },
+  { name: 'Kansas', abbreviation: 'KS' },
+  { name: 'Kentucky', abbreviation: 'KY' },
+  { name: 'Louisiana', abbreviation: 'LA' },
+  { name: 'Maine', abbreviation: 'ME' },
+  { name: 'Maryland', abbreviation: 'MD' },
+  { name: 'Massachusetts', abbreviation: 'MA' },
+  { name: 'Michigan', abbreviation: 'MI' },
+  { name: 'Minnesota', abbreviation: 'MN' },
+  { name: 'Mississippi', abbreviation: 'MS' },
+  { name: 'Missouri', abbreviation: 'MO' },
+  { name: 'Montana', abbreviation: 'MT' },
+  { name: 'Nebraska', abbreviation: 'NE' },
+  { name: 'Nevada', abbreviation: 'NV' },
+  { name: 'New Hampshire', abbreviation: 'NH' },
+  { name: 'New Jersey', abbreviation: 'NJ' },
+  { name: 'New Mexico', abbreviation: 'NM' },
+  { name: 'New York', abbreviation: 'NY' },
+  { name: 'North Carolina', abbreviation: 'NC' },
+  { name: 'North Dakota', abbreviation: 'ND' },
+  { name: 'Ohio', abbreviation: 'OH' },
+  { name: 'Oklahoma', abbreviation: 'OK' },
+  { name: 'Oregon', abbreviation: 'OR' },
+  { name: 'Pennsylvania', abbreviation: 'PA' },
+  { name: 'Rhode Island', abbreviation: 'RI' },
+  { name: 'South Carolina', abbreviation: 'SC' },
+  { name: 'South Dakota', abbreviation: 'SD' },
+  { name: 'Tennessee', abbreviation: 'TN' },
+  { name: 'Texas', abbreviation: 'TX' },
+  { name: 'Utah', abbreviation: 'UT' },
+  { name: 'Vermont', abbreviation: 'VT' },
+  { name: 'Virginia', abbreviation: 'VA' },
+  { name: 'Washington', abbreviation: 'WA' },
+  { name: 'West Virginia', abbreviation: 'WV' },
+  { name: 'Wisconsin', abbreviation: 'WI' },
+  { name: 'Wyoming', abbreviation: 'WY' },
+  { name: 'District of Columbia', abbreviation: 'DC' },
+];
 
 const CivicContactForm = () => {
-  const [state, setState] = useState('');
-  const [politician, setPolitician] = useState('');
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Form submitted');
-    // Here you would typically send the form data to your backend
   };
 
-  // This is a placeholder. In a real application, you'd fetch this data from an API
-  const states = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 
-    'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 
-    'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 
-    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 
-    'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 
-    'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 
-    'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 
-    'Wisconsin', 'Wyoming'
-  ];
-
-  // This is a placeholder. In a real application, you'd fetch this data from an API based on the selected state
-  const politicians = ['Senator A', 'Senator B', 'Representative C', 'Representative D'];
-
   return (
-    <Card sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
-      <CardContent>
-        <Typography variant="h5" component="div" gutterBottom sx={{ color: 'primary.main', textAlign: 'center' }}>
-          Contact Your Politician
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { mb: 2 } }}>
-          <TextField
-            fullWidth
-            required
-            id="name"
-            name="name"
-            label="Your Name"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            required
-            id="email"
-            name="email"
-            label="Your Email"
-            type="email"
-            variant="outlined"
-          />
-          <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-            <InputLabel id="state-label">State</InputLabel>
-            <Select
-              labelId="state-label"
-              id="state"
-              value={state}
-              onChange={(e) => setState(e.target.value as string)}
-              label="State"
+    <ThemeProvider theme={theme}>
+      <Card sx={{ maxWidth: 600, margin: 'auto', mt: 4, backgroundColor: '#f9f7f1' }}>
+        <CardContent>
+          <Typography variant="h4" component="div" gutterBottom sx={{ color: 'primary.main', textAlign: 'center', fontWeight: 'bold' }}>
+            Share Your Thoughts with Your Senator
+          </Typography>
+          <Typography variant="body1" gutterBottom sx={{ textAlign: 'center', mb: 3 }}>
+            For general comments, please use the form below.
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { mb: 2 } }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  fullWidth
+                  select
+                  id="prefix"
+                  name="prefix"
+                  label="Prefix"
+                  variant="outlined"
+                  defaultValue=""
+                >
+                  <MenuItem value="">Select</MenuItem>
+                  <MenuItem value="Mr">Mr</MenuItem>
+                  <MenuItem value="Mrs">Mrs</MenuItem>
+                  <MenuItem value="Ms">Ms</MenuItem>
+                  <MenuItem value="Dr">Dr</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  fullWidth
+                  required
+                  id="firstName"
+                  name="firstName"
+                  label="First Name"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  fullWidth
+                  required
+                  id="lastName"
+                  name="lastName"
+                  label="Last Name"
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
+            <TextField
+              fullWidth
+              required
+              id="streetAddress"
+              name="streetAddress"
+              label="Street Address"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              id="addressLine2"
+              name="addressLine2"
+              label="Address Line 2"
+              variant="outlined"
+            />
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  id="city"
+                  name="city"
+                  label="City"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  select
+                  required
+                  id="state"
+                  name="state"
+                  label="State"
+                  variant="outlined"
+                  defaultValue="PA"
+                >
+                  {states.map((state) => (
+                    <MenuItem key={state.abbreviation} value={state.abbreviation}>
+                      {state.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            </Grid>
+            <TextField
+              fullWidth
+              required
+              id="zip"
+              name="zip"
+              label="ZIP Code"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              id="phone"
+              name="phone"
+              label="Phone"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              required
+              id="email"
+              name="email"
+              label="Email"
+              type="email"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              select
+              required
+              id="subject"
+              name="subject"
+              label="Subject"
+              variant="outlined"
+              defaultValue=""
             >
-              {states.map((state) => (
-                <MenuItem key={state} value={state}>{state}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-            <InputLabel id="politician-label">Politician</InputLabel>
-            <Select
-              labelId="politician-label"
-              id="politician"
-              value={politician}
-              onChange={(e) => setPolitician(e.target.value as string)}
-              label="Politician"
+              <MenuItem value="">Select a subject</MenuItem>
+              <MenuItem value="general">General Comment</MenuItem>
+              <MenuItem value="federal">Help with a Federal Agency</MenuItem>
+            </TextField>
+            <TextField
+              fullWidth
+              required
+              id="message"
+              name="message"
+              label="What's your message? (1,200 characters or less)"
+              multiline
+              rows={4}
+              variant="outlined"
+              inputProps={{ maxLength: 1200 }}
+            />
+            <Button 
+              type="submit" 
+              variant="contained" 
+              color="primary" 
+              fullWidth 
+              sx={{ mt: 2, py: 1.5, fontSize: '1.1rem' }}
             >
-              {politicians.map((politician) => (
-                <MenuItem key={politician} value={politician}>{politician}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            fullWidth
-            required
-            id="subject"
-            name="subject"
-            label="Subject"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            required
-            id="message"
-            name="message"
-            label="Your Message"
-            multiline
-            rows={4}
-            variant="outlined"
-          />
-          <Button 
-            type="submit" 
-            variant="contained" 
-            color="primary" 
-            fullWidth 
-            sx={{ mt: 2 }}
-          >
-            Send Message
-          </Button>
-        </Box>
-      </CardContent>
-    </Card>
+              SUBMIT
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </ThemeProvider>
   );
 };
 
