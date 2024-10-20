@@ -217,9 +217,49 @@ const CivicContactForm = () => {
               defaultValue=""
             >
               <MenuItem value="">Select a subject</MenuItem>
-              <MenuItem value="general">General Comment</MenuItem>
-              <MenuItem value="federal">Help with a Federal Agency</MenuItem>
-            </TextField>
+            <MenuItem value="Agriculture">Agriculture</MenuItem>
+            <MenuItem value="Animals">Animals</MenuItem>
+            <MenuItem value="Arts and Humanities">Arts and Humanities</MenuItem>
+            <MenuItem value="Banking">Banking</MenuItem>
+            <MenuItem value="Budget and Economy">Budget and Economy</MenuItem>
+            <MenuItem value="Campaign Finance">Campaign Finance</MenuItem>
+            <MenuItem value="Civil Rights/Humanities">Civil Rights/Humanities</MenuItem>
+            <MenuItem value="Congress">Congress</MenuItem>
+            <MenuItem value="Child Tax Credit">Child Tax Credit</MenuItem>
+            <MenuItem value="Defense and Military">Defense and Military</MenuItem>
+            <MenuItem value="Economy">Economy</MenuItem>
+            <MenuItem value="Education">Education</MenuItem>
+            <MenuItem value="Energy">Energy</MenuItem>
+            <MenuItem value="Climate Change">Climate Change</MenuItem>
+            <MenuItem value="Family">Family</MenuItem>
+            <MenuItem value="Federal Employees">Federal Employees</MenuItem>
+            <MenuItem value="Food Safety">Food Safety</MenuItem>
+            <MenuItem value="Foreign Relations">Foreign Relations</MenuItem>
+            <MenuItem value="Guns">Guns</MenuItem>
+            <MenuItem value="Health">Health</MenuItem>
+            <MenuItem value="Homeland Security">Homeland Security</MenuItem>
+            <MenuItem value="Housing">Housing</MenuItem>
+            <MenuItem value="Immigration">Immigration</MenuItem>
+            <MenuItem value="Infrastructure">Infrastructure</MenuItem>
+            <MenuItem value="International Relations">International Relations</MenuItem>
+            <MenuItem value="Internal Revenue Service (IRS)">Internal Revenue Service (IRS)</MenuItem>
+            <MenuItem value="Jobs">Jobs</MenuItem>
+            <MenuItem value="Judiciary">Judiciary</MenuItem>
+            <MenuItem value="Labor">Labor</MenuItem>
+            <MenuItem value="LGBT">LGBT</MenuItem>
+            <MenuItem value="Postal">Postal</MenuItem>
+            <MenuItem value="Science and Technology">Science and Technology</MenuItem>
+            <MenuItem value="Senior Citizens">Senior Citizens</MenuItem>
+            <MenuItem value="Small Business">Small Business</MenuItem>
+            <MenuItem value="Social Services">Social Services</MenuItem>
+            <MenuItem value="Social Security">Social Security</MenuItem>
+            <MenuItem value="Tax">Tax</MenuItem>
+            <MenuItem value="Telecommunications">Telecommunications</MenuItem>
+            <MenuItem value="Transportation">Transportation</MenuItem>
+            <MenuItem value="Trade">Trade</MenuItem>
+            <MenuItem value="Veterans">Veterans</MenuItem>
+            <MenuItem value="Women's Issues">Women's Issues</MenuItem>
+          </TextField>
             <TextField
               fullWidth
               required
