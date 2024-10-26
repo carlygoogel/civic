@@ -37,9 +37,11 @@ const Home = () => {
           Transforming constituent communication with cutting-edge AI technology. Streamline your workflow and enhance engagement.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
+        <Link href="/dashboard" passHref>
           <button className="bg-indigo-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-indigo-700 transition flex items-center">
             Get Started <ArrowRight className="ml-2" size={20} />
           </button>
+          </Link>
           <Link href="/contact" passHref>
             <button className="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-indigo-50 transition border border-indigo-600">
             Contact Senator

@@ -1,7 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+
+
+
 import { 
   Card, 
   CardContent, 
@@ -11,7 +20,9 @@ import {
   Button, 
   Typography, 
   Box,
-  Grid
+  Grid,
+  Alert,
+  Snackbar
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -82,10 +93,88 @@ const states = [
 ];
 
 const CivicContactForm = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formValues, setFormValues] = useState({
+    prefix: '',
+    firstName: '',
+    lastName: '',
+    streetAddress: '',
+    addressLine2: '',
+    city: '',
+    state: 'PA',
+    zip: '',
+    phone: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted');
+    const formData = new FormData(e.currentTarget);
+
+    // Format name with prefix, first name, and last name
+    const fullName = [
+      formData.get('prefix'),
+      formData.get('firstName'),
+      formData.get('lastName')
+    ].filter(Boolean).join(' ').trim();
+
+    // Format complete address
+    const fullAddress = [
+      formData.get('streetAddress'),
+      formData.get('addressLine2')
+    ].filter(Boolean).join(', ').trim();
+
+    // Format phone number as numeric
+    const phoneString = formData.get('phone') as string;
+    const phoneNumeric = phoneString ? parseInt(phoneString.replace(/\D/g, '')) : null;
+
+    const formPayload = {
+      name: fullName,
+      address: fullAddress,
+      city: formData.get('city'),
+      phone: phoneNumeric,
+      subject: formData.get('subject'),
+      message: formData.get('message')?.toString().substring(0, 1200)
+    };
+
+    try {
+      const { error } = await supabase
+        .from('Emails')
+        .insert([formPayload]);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        return;
+      }
+
+      // Reset form values
+      setFormValues({
+        prefix: '',
+        firstName: '',
+        lastName: '',
+        streetAddress: '',
+        addressLine2: '',
+        city: '',
+        state: 'PA',
+        zip: '',
+        phone: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+
+      // Reset form
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,7 +196,9 @@ const CivicContactForm = () => {
                   name="prefix"
                   label="Prefix"
                   variant="outlined"
-                  defaultValue=""
+                 // defaultValue=""
+                  value={formValues.prefix}
+                  onChange={(e) => setFormValues({...formValues, prefix: e.target.value})}
                 >
                   <MenuItem value="">Select</MenuItem>
                   <MenuItem value="Mr">Mr</MenuItem>
@@ -124,7 +215,9 @@ const CivicContactForm = () => {
                   name="firstName"
                   label="First Name"
                   variant="outlined"
-                />
+                  value={formValues.firstName}
+                  onChange={(e) => setFormValues({...formValues, firstName: e.target.value})}
+              />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -134,6 +227,8 @@ const CivicContactForm = () => {
                   name="lastName"
                   label="Last Name"
                   variant="outlined"
+                  value={formValues.lastName}
+                  onChange={(e) => setFormValues({...formValues, lastName: e.target.value})}
                 />
               </Grid>
             </Grid>
@@ -144,6 +239,8 @@ const CivicContactForm = () => {
               name="streetAddress"
               label="Street Address"
               variant="outlined"
+              value={formValues.streetAddress}
+              onChange={(e) => setFormValues({...formValues, streetAddress: e.target.value})}
             />
             <TextField
               fullWidth
@@ -151,6 +248,8 @@ const CivicContactForm = () => {
               name="addressLine2"
               label="Address Line 2"
               variant="outlined"
+              value={formValues.addressLine2}
+              onChange={(e) => setFormValues({...formValues, addressLine2: e.target.value})}
             />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -161,6 +260,8 @@ const CivicContactForm = () => {
                   name="city"
                   label="City"
                   variant="outlined"
+                  value={formValues.city}
+                  onChange={(e) => setFormValues({...formValues, city: e.target.value})}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -173,6 +274,8 @@ const CivicContactForm = () => {
                   label="State"
                   variant="outlined"
                   defaultValue="PA"
+                  value={formValues.state}
+                  onChange={(e) => setFormValues({...formValues, state: e.target.value})}
                 >
                   {states.map((state) => (
                     <MenuItem key={state.abbreviation} value={state.abbreviation}>
@@ -189,6 +292,8 @@ const CivicContactForm = () => {
               name="zip"
               label="ZIP Code"
               variant="outlined"
+              value={formValues.zip}
+              onChange={(e) => setFormValues({...formValues, zip: e.target.value})}
             />
             <TextField
               fullWidth
@@ -196,6 +301,8 @@ const CivicContactForm = () => {
               name="phone"
               label="Phone"
               variant="outlined"
+              value={formValues.phone}
+              onChange={(e) => setFormValues({...formValues, phone: e.target.value})}
             />
             <TextField
               fullWidth
@@ -205,6 +312,8 @@ const CivicContactForm = () => {
               label="Email"
               type="email"
               variant="outlined"
+              value={formValues.email}
+              onChange={(e) => setFormValues({...formValues, email: e.target.value})}
             />
             <TextField
               fullWidth
@@ -215,6 +324,8 @@ const CivicContactForm = () => {
               label="Subject"
               variant="outlined"
               defaultValue=""
+              value={formValues.subject}
+              onChange={(e) => setFormValues({...formValues, subject: e.target.value})}
             >
               <MenuItem value="">Select a subject</MenuItem>
             <MenuItem value="Agriculture">Agriculture</MenuItem>
@@ -260,7 +371,7 @@ const CivicContactForm = () => {
             <MenuItem value="Veterans">Veterans</MenuItem>
             <MenuItem value="Women's Issues">Women's Issues</MenuItem>
           </TextField>
-            <TextField
+          <TextField
               fullWidth
               required
               id="message"
@@ -270,6 +381,8 @@ const CivicContactForm = () => {
               rows={4}
               variant="outlined"
               inputProps={{ maxLength: 1200 }}
+              value={formValues.message}
+              onChange={(e) => setFormValues({...formValues, message: e.target.value})}
             />
             <Button 
               type="submit" 
