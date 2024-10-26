@@ -55,32 +55,39 @@ const MainDashboard = () => {
     try {
       setLoading(true);
       setError(null);
-
+  
       // Debug log
       console.log('Fetching emails...');
-
-      // First, let's get raw data to debug
+  
+      // Fetch data ordered by created_at in descending order
       const { data, error } = await supabase
         .from('Emails')
-        .select('*');
-
+        .select('*')
+        .order('created_at', { ascending: false }); // This will show most recent first
+  
       // Debug log
       console.log('Raw response:', { data, error });
-
+  
       // Store raw data for debugging
       setRawData(JSON.stringify(data, null, 2));
-
+  
       if (error) {
         console.error('Supabase error:', error);
         setError(error.message);
         return;
       }
-
+  
       if (data) {
-        console.log('Setting emails data:', data);
-        setEmails(data);
-        setTotalEmails(data.length);
-        calculateTopicBreakdown(data);
+        // Format the timestamps for display
+        const formattedData = data.map(email => ({
+          ...email,
+          created_at: new Date(email.created_at).toLocaleString() // Format the timestamp
+        }));
+  
+        console.log('Setting emails data:', formattedData);
+        setEmails(formattedData);
+        setTotalEmails(formattedData.length);
+        calculateTopicBreakdown(formattedData);
       }
     } catch (error) {
       console.error('Error in fetchEmails:', error);
@@ -89,6 +96,7 @@ const MainDashboard = () => {
       setLoading(false);
     }
   };
+ 
 
   const calculateTopicBreakdown = (emailData: Email[]) => {
     const topics: { [key: string]: number } = {};
