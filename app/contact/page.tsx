@@ -113,6 +113,7 @@ const CivicContactForm = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
+
     // Format name with prefix, first name, and last name
     const fullName = [
       formData.get('prefix'),
@@ -130,13 +131,16 @@ const CivicContactForm = () => {
     const phoneString = formData.get('phone') as string;
     const phoneNumeric = phoneString ? parseInt(phoneString.replace(/\D/g, '')) : null;
 
+    const now = new Date().toISOString();
+
     const formPayload = {
       name: fullName,
       address: fullAddress,
       city: formData.get('city'),
       phone: phoneNumeric,
       subject: formData.get('subject'),
-      message: formData.get('message')?.toString().substring(0, 1200)
+      message: formData.get('message')?.toString().substring(0, 1200),
+      created_at: now
     };
 
     try {
