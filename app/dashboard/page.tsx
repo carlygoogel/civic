@@ -2,18 +2,16 @@
 'use client';
 import InquiryCenter from '../components/inquarycenter';
 import MainDashboard from '../components/maindashboard';
+import Layout from '../components/Layout';
 
 
 
 export default function DashboardPage() {
   return (
     <div>
-    <div>
+    <Layout>
       <MainDashboard />
-    </div>
-    <div>
-      <InquiryCenter />
-    </div>
+    </Layout>
     </div>
   );
 }
