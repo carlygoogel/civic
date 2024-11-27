@@ -1,7 +1,7 @@
 # Civic
 ## Government Relations Reimagined
 
-### Transforming constituent communication with cutting-edge AI technology. Streamline your workflow and enhance engagement.
+### Transforming constituent communication with cutting-edge AI technology. Streamline your workflow and enhance engagement through our intuitive dashboard. 
 
 ## Getting Started
 
